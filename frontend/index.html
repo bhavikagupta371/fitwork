@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fitwork – Jobs ranked by your skills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#">Fitwork</a>
+  <nav>
+    <span id="who" class="who"></span>
+    <button class="link" id="navJobs">Jobs</button>
+    <button class="link" id="navApps" hidden>My applications</button>
+    <button class="link" id="navDash" hidden>Employer dashboard</button>
+    <a class="link" id="navAdmin" hidden target="_blank" rel="noopener">Admin panel</a>
+    <button class="primary" id="authBtn">Log in</button>
+  </nav>
+</header>
+<main>
+  <div id="viewJobs">
+    <section class="hero">
+      <h1>Tell us what you know.<br>We’ll rank the jobs.</h1>
+      <p class="lead">Add your skills and every opening shows how well you fit, and what you’re missing.</p>
+      <div class="skillbox"><div id="chips" class="chips"></div>
+        <input id="skillInput" list="skillList" placeholder="Type a skill and press Enter, e.g. Python" autocomplete="off" aria-label="Add a skill">
+        <datalist id="skillList"></datalist></div>
+    </section>
+    <section>
+      <div class="filters"><input id="q" type="search" placeholder="Search title or company" aria-label="Search jobs">
+        <select id="type" aria-label="Job type"><option value="">All types</option><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option></select>
+        <select id="loc" aria-label="Location"><option value="">All locations</option></select></div>
+      <p id="count" class="count" aria-live="polite"></p>
+      <ul id="jobs" class="jobs"></ul>
+    </section>
+  </div>
+
+  <div id="viewApps" hidden><section class="panel"><h2>My applications</h2><div id="appList"></div></section></div>
+
+  <div id="viewDash" hidden>
+    <section class="panel"><h2>Post a job</h2>
+      <form id="jobForm" class="grid">
+        <label>Job title<input name="title" required></label>
+        <label>Company<input name="company" required></label>
+        <label>Location<input name="location" placeholder="Remote, Delhi NCR…" required></label>
+        <label>Type<select name="type"><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option></select></label>
+        <label>Salary<input name="salary" placeholder="₹8–12 LPA"></label>
+        <label>Skills, comma separated<input name="skills" placeholder="Python, Django, SQL"></label>
+        <label class="wide">Description<textarea name="description" rows="3"></textarea></label>
+        <p id="jobErr" class="err wide"></p>
+        <div class="wide row"><button class="primary">Publish job</button></div>
+      </form></section>
+    <section><h2>Your jobs</h2><ul id="myJobs" class="jobs"></ul></section>
+  </div>
+</main>
+
+<dialog id="authDlg">
+  <div class="tabs"><button class="ghost" id="tabLogin" type="button">Log in</button><button class="ghost" id="tabReg" type="button">Register</button></div>
+  <form id="authForm">
+    <div id="roleBox" class="role" hidden>
+      <label><input type="radio" name="role" value="applicant" checked> I’m looking for a job</label>
+      <label><input type="radio" name="role" value="employer"> I’m hiring</label>
+    </div>
+    <label>Username<input name="username" required autocomplete="username"></label><br>
+    <label id="emailBox" hidden>Email<input name="email" type="email"></label>
+    <label id="coBox" hidden>Company name<input name="company"></label>
+    <label>Password<input name="password" type="password" minlength="6" required autocomplete="current-password"></label>
+    <p id="authErr" class="err"></p>
+    <div class="row"><button type="button" class="ghost" id="authCancel">Cancel</button><button class="primary" id="authGo">Log in</button></div>
+  </form>
+</dialog>
+<dialog id="applyDlg">
+  <form id="applyForm"><h2 id="applyTitle">Apply</h2>
+    <label>Short note<textarea name="note" rows="3" placeholder="Why are you a good fit?"></textarea></label>
+    <p id="applyErr" class="err"></p>
+    <div class="row"><button type="button" class="ghost" id="applyCancel">Cancel</button><button class="primary">Send application</button></div>
+  </form>
+</dialog>
+<div id="toast" class="toast" role="status"></div>
+<script>window.API_URL="http://127.0.0.1:8001/api"; // change to your deployed backend URL</script>
+<script src="script.js"></script>
+</body>
+</html>
